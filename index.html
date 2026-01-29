@@ -1,121 +1,180 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry'wala | Fast, Secure, Clean</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Sil Nia | Experience Comfort</title>
     <style>
-        body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
-        .step-card:hover { transform: translateY(-10px); transition: 0.3s; }
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
+        /* CSS কোড এখন এখানেই (Internal CSS) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body { background-color: #fdfdfd; color: #333; }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 28px; font-weight: bold; color: #222; letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; }
+        .nav-links li { margin-left: 25px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #008cba; }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            text-decoration: none;
-            font-weight: bold;
+            justify-content: center;
+            text-align: center;
+            color: white;
         }
+
+        .hero-content h1 { font-size: 50px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 18px; margin-bottom: 25px; }
+        .btn { 
+            padding: 15px 40px; background: #fff; color: #222; 
+            text-decoration: none; border-radius: 30px; font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover { background: #222; color: #fff; }
+
+        /* Products */
+        .products { padding: 80px 8%; text-align: center; }
+        .products h2 { font-size: 32px; margin-bottom: 40px; position: relative; }
+        .products h2::after {
+            content: ''; width: 60px; height: 3px; background: #008cba;
+            position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+        }
+
+        .product-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px;
+        }
+
+        .product-card { 
+            background: #fff; padding: 15px; border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .product-card:hover { transform: translateY(-10px); }
+        .product-img { 
+            height: 300px; background: #f0f0f0; border-radius: 8px; margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: center; font-style: italic; color: #999;
+        }
+
+        .price { font-size: 20px; font-weight: bold; color: #008cba; margin: 10px 0; }
+        .order-btn { 
+            display: inline-block; width: 100%; padding: 12px; 
+            background: #222; color: white; text-decoration: none; border-radius: 6px;
+        }
+
+        /* Order Form */
+        .order-section { padding: 80px 8%; background: #f9f9f9; }
+        .order-container { max-width: 600px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .order-container h2 { margin-bottom: 25px; text-align: center; }
+        input, textarea, select { 
+            width: 100%; padding: 14px; margin-bottom: 20px; 
+            border: 1px solid #ddd; border-radius: 8px; outline: none;
+        }
+        .submit-btn { 
+            width: 100%; padding: 16px; background: #28a745; 
+            color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold;
+        }
+        .submit-btn:hover { background: #218838; }
+
+        /* Footer */
+        footer { background: #1a1a1a; color: #fff; text-align: center; padding: 50px 8%; }
+        .footer-info { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
+        .footer-info strong { color: #fff; }
     </style>
 </head>
-<body class="bg-slate-50">
+<body>
 
-    <header class="bg-white py-16 px-6 text-center shadow-sm border-b-4 border-blue-600">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-6 flex justify-center">
-                 <div class="img src="logo.png" alt=<img src="logo.png" alt="Laundry'wala Logo" class="w-40 h-auto mx-auto animate__animated animate__zoomIn">
-                 </div>
-            </div>
-            <h1 class="text-5xl font-bold text-blue-700 animate__animated animate__fadeInDown">Laundry'wala</h1>
-            <p class="text-gray-700 mt-4 text-xl font-semibold animate__animated animate__fadeInUp">Fast, Secure, Clean</p>
-            <p class="text-blue-500 mt-2">উত্তরায় আপনার কাপড় পরিষ্কারের বিশ্বস্ত প্রতিষ্ঠান</p>
-            <a href="https://wa.me/8801872720582" class="mt-8 inline-block bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition animate__animated animate__pulse animate__infinite">অর্ডার করুন</a>
+    <nav class="navbar">
+        <div class="logo">Sil Nia</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#order">Order</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Experience Comfort</h1>
+            <p>আমাদের প্রিমিয়াম কালেকশনে নিজেকে সাজান পরম আরামে।</p>
+            <a href="#shop" class="btn">কালেকশন দেখুন</a>
         </div>
     </header>
 
-    <a href="https://wa.me/8801872720582" class="whatsapp-btn">
-        <span>💬 হোয়াটসঅ্যাপে অর্ডার</span>
-    </a>
-
-    <section class="max-w-6xl mx-auto py-20 px-4">
-        <h2 class="text-3xl font-bold text-center mb-16 text-gray-800 border-b-2 border-blue-200 inline-block left-1/2 -translate-x-1/2 relative pb-2">আমরা যেভাবে কাজ করি</h2>
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
-            <div class="step-card bg-white p-6 rounded-2xl shadow-md animate__animated animate__fadeInUp">
-                <div class="text-5xl mb-4">📞</div>
-                <h3 class="font-bold text-blue-600 mb-2">১. কালেকশন</h3>
-                <p class="text-sm text-gray-600">অর্ডার করলে আমরা আপনার বাসা থেকে কাপড় নিয়ে আসি।</p>
+    <section id="shop" class="products">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">Product Image 1</div>
+                <h3>Premium Cotton Panjabi</h3>
+                <p class="price">1,850 BDT</p>
+                <a href="#order" class="order-btn">অর্ডার করুন</a>
             </div>
-            <div class="step-card bg-white p-6 rounded-2xl shadow-md animate__animated animate__fadeInUp animate__delay-1s">
-                <div class="text-5xl mb-4">🔍</div>
-                <h3 class="font-bold text-blue-600 mb-2">২. যাচাইকরণ</h3>
-                <p class="text-sm text-gray-600">কাপড়ের মান পরীক্ষা করে প্রসেসিং শুরু করি।</p>
+            <div class="product-card">
+                <div class="product-img">Product Image 2</div>
+                <h3>Classic Comfort T-Shirt</h3>
+                <p class="price">750 BDT</p>
+                <a href="#order" class="order-btn">অর্ডার করুন</a>
             </div>
-            <div class="step-card bg-white p-6 rounded-2xl shadow-md animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="text-5xl mb-4">🧼</div>
-                <h3 class="font-bold text-blue-600 mb-2">৩. ওয়াশ</h3>
-                <p class="text-sm text-gray-600">উন্নত মেশিনে নিখুঁতভাবে পরিষ্কার করা হয়।</p>
-            </div>
-            <div class="step-card bg-white p-6 rounded-2xl shadow-md animate__animated animate__fadeInUp animate__delay-3s">
-                <div class="text-5xl mb-4">💨</div>
-                <h3 class="font-bold text-blue-600 mb-2">৪. আয়রন</h3>
-                <p class="text-sm text-gray-600">প্রফেশনাল স্টিম আয়রন দিয়ে ভাঁজ করা হয়।</p>
-            </div>
-            <div class="step-card bg-white p-6 rounded-2xl shadow-md animate__animated animate__fadeInUp animate__delay-4s">
-                <div class="text-5xl mb-4">📦</div>
-                <h3 class="font-bold text-blue-600 mb-2">৫. ডেলিভারি</h3>
-                <p class="text-sm text-gray-600">সুন্দর প্যাকেজিং করে আপনার ঠিকানায় পৌঁছে দেই।</p>
+            <div class="product-card">
+                <div class="product-img">Product Image 3</div>
+                <h3>Formal Linen Shirt</h3>
+                <p class="price">1,550 BDT</p>
+                <a href="#order" class="order-btn">অর্ডার করুন</a>
             </div>
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto py-10 px-4 mb-20">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div class="bg-blue-700 p-6 text-center text-white">
-                <h2 class="text-2xl font-bold italic text-white uppercase tracking-wider">আমাদের সার্ভিস রেট</h2>
-            </div>
-            <table class="w-full text-center">
-                <thead>
-                    <tr class="bg-gray-100 border-b">
-                        <th class="p-4 font-bold text-gray-700">কাপড়ের ধরন</th>
-                        <th class="p-4 font-bold text-gray-700">ধোয়া + আয়রন</th>
-                        <th class="p-4 font-bold text-gray-700">শুধু আয়রন</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-800">
-                    <tr class="border-b hover:bg-blue-50"> <td class="p-4">শার্ট / টি-শার্ট</td> <td class="p-4 font-bold">৳৩০</td> <td class="p-4 font-bold">৳১০</td> </tr>
-                    <tr class="border-b hover:bg-blue-50"> <td class="p-4">প্যান্ট / জিন্স</td> <td class="p-4 font-bold">৳৩৫</td> <td class="p-4 font-bold">৳১২</td> </tr>
-                    <tr class="border-b hover:bg-blue-50"> <td class="p-4">পাঞ্জাবি</td> <td class="p-4 font-bold">৳৪০</td> <td class="p-4 font-bold">৳১৫</td> </tr>
-                    <tr class="border-b hover:bg-blue-50"> <td class="p-4">শাড়ি (কটন)</td> <td class="p-4 font-bold">৳৮০</td> <td class="p-4 font-bold">৳৩০</td> </tr>
-                    <tr class="border-b hover:bg-blue-50"> <td class="p-4">বেড শিট (সিঙ্গেল)</td> <td class="p-4 font-bold">৳৬০</td> <td class="p-4 font-bold">৳২০</td> </tr>
-                    <tr class="hover:bg-blue-50"> <td class="p-4">ব্লাঙ্কেট / কম্বল</td> <td class="p-4 font-bold">৳১৮০-৩০০</td> <td class="p-4 font-bold">--</td> </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-8 p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded text-center">
-            <p class="text-yellow-800 font-bold">৫০০ টাকার বেশি অর্ডারে উত্তরা-র ভেতরে ডেলিভারি চার্জ একদম ফ্রি!</p>
+    <section id="order" class="order-section">
+        <div class="order-container">
+            <h2>অর্ডার কনফার্ম করুন</h2>
+            <form action="https://formspree.io/f/laundrywala72720@gmail.com" method="POST">
+                <input type="text" name="customer_name" placeholder="আপনার পুরো নাম" required>
+                <input type="text" name="phone_number" placeholder="আপনার একটিভ ফোন নম্বর" required>
+                <textarea name="delivery_address" rows="4" placeholder="ডেলিভারি ঠিকানা (বাসা নং, রোড, এলাকা, জেলা)" required></textarea>
+                <select name="selected_product">
+                    <option value="">পণ্য নির্বাচন করুন</option>
+                    <option value="Premium Panjabi">Premium Cotton Panjabi</option>
+                    <option value="Comfort T-Shirt">Classic Comfort T-Shirt</option>
+                    <option value="Linen Shirt">Formal Linen Shirt</option>
+                </select>
+                <button type="submit" class="submit-btn">অর্ডার প্লেস করুন</button>
+            </form>
         </div>
     </section>
 
-    <footer class="bg-blue-900 text-white py-12 px-6 text-center">
-        <h3 class="text-2xl font-bold mb-4">Laundry'wala</h3>
-        <p class="mb-2 italic text-blue-200 uppercase tracking-widest text-sm">Fast, Secure, Clean</p>
-        <div class="space-y-2 mt-4">
-            <p>📞 হটলাইন: <a href="tel:01872720582" class="underline">01872720582</a></p>
-            <p>📧 ইমেইল: <a href="mailto:laundrywala72720@gmail.com" class="underline">laundrywala72720@gmail.com</a></p>
-            <p>📍 ঠিকানা: উত্তরা, ঢাকা</p>
+    <footer>
+        <div class="footer-info">
+            <p><strong>Sil Nia</strong> - Experience Comfort</p>
+            <p>Email: laundrywala72720@gmail.com</p>
+            <p>Phone: 01872720582</p>
         </div>
-        <hr class="my-8 border-blue-800">
-        <p class="text-sm opacity-60">© ২০২৬ Laundry'wala. সর্বস্বত্ব সংরক্ষিত।</p>
+        <p style="font-size: 14px; color: #777;">&copy; 2026 Sil Nia Clothing. All rights reserved.</p>
     </footer>
 
 </body>
