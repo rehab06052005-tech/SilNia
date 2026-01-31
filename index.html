@@ -4,203 +4,254 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laundry’wala | Premium Care</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --primary: #0a2540; --accent: #00d2ff; --offer: #ff416c; --light: #f6f9fc; --white: #ffffff; }
-        body { margin: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: var(--light); overflow-x: hidden; }
+        :root { --primary: #0f172a; --accent: #0ea5e9; --offer: #ef4444; --bg: #f8fafc; --glass: rgba(255, 255, 255, 0.8); }
+        body { margin: 0; font-family: 'Urbanist', 'Hind Siliguri', sans-serif; background: var(--bg); color: var(--primary); overflow-x: hidden; }
         
         /* Moving Offer Bar */
-        .moving-offer { background: var(--offer); color: white; padding: 10px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; }
-        .moving-text { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; font-size: 14px; }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .top-offer { background: var(--primary); color: white; padding: 10px 0; overflow: hidden; position: sticky; top: 0; z-index: 5000; }
+        .marquee { display: inline-block; white-space: nowrap; animation: scroll 20s linear infinite; font-weight: 600; font-size: 14px; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Navbar & Tabs */
-        .navbar { background: var(--white); padding: 12px 5%; display: flex; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 38px; z-index: 1000; }
-        .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        /* Navbar */
+        .navbar { background: var(--glass); backdrop-filter: blur(15px); padding: 15px 5%; display: flex; justify-content: space-between; position: sticky; top: 38px; z-index: 4000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .logo { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--primary); }
         .logo span { color: var(--accent); }
-        .tabs { display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%; scrollbar-width: none; background: white; }
-        .tab { padding: 8px 20px; background: #eee; border-radius: 30px; cursor: pointer; white-space: nowrap; font-weight: 600; transition: 0.3s; }
-        .tab.active { background: var(--primary); color: white; }
 
-        /* Video Section */
-        .video-container { width: 90%; max-width: 600px; margin: 20px auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); background: #000; position: relative; padding-bottom: 56.25%; height: 0; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* Tabs */
+        .tab-wrapper { display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%; scrollbar-width: none; background: white; }
+        .tab-btn { padding: 10px 25px; background: #f1f5f9; border: none; border-radius: 50px; cursor: pointer; white-space: nowrap; font-weight: 700; transition: 0.3s; }
+        .tab-btn.active { background: var(--accent); color: white; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
 
-        /* Grid System */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 0 5%; }
-        .card { background: white; border-radius: 20px; padding: 15px; text-align: center; border: 1px solid #eee; }
-        .old-p { text-decoration: line-through; color: #999; font-size: 11px; }
-        .new-p { font-size: 18px; font-weight: 800; color: var(--primary); }
-        .q-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: #f0f2f5; cursor: pointer; font-weight: bold; }
+        /* Grid & Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px 5% 100px; }
+        .card { background: white; padding: 20px; border-radius: 25px; text-align: center; border: 1px solid #f1f5f9; transition: 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-5px); }
+        .item-name { font-weight: 700; font-size: 14px; margin-bottom: 10px; height: 35px; overflow: hidden; }
+        .old-p { text-decoration: line-through; color: #94a3b8; font-size: 11px; }
+        .new-p { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+        
+        .qty-controls { display: flex; justify-content: center; align-items: center; gap: 12px; background: #f8fafc; padding: 5px; border-radius: 15px; }
+        .q-btn { width: 30px; height: 30px; border: none; background: white; border-radius: 8px; font-weight: 800; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        /* Floating Cart & WA */
+        .cart-bar { position: fixed; bottom: 25px; left: 5%; right: 5%; background: var(--primary); padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; color: white; z-index: 4500; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .wa-float { position: fixed; bottom: 100px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 3000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); text-decoration: none; }
 
         /* Modals */
-        #payModal, #successModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; }
-        .modal-body { background: white; padding: 25px; border-radius: 25px; width: 85%; max-width: 350px; text-align: center; }
-        .order-field { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
+        .modal-body { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 420px; text-align: center; max-height: 90vh; overflow-y: auto; }
+        .order-field { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; font-family: inherit; }
 
-        .cart-strip { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--primary); color: white; padding: 15px 25px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; z-index: 2000; }
-        footer { background: var(--primary); color: white; padding: 40px 5%; text-align: center; margin-top: 50px; border-radius: 30px 30px 0 0; }
+        /* Footer */
+        footer { background: var(--primary); color: white; padding: 50px 5%; text-align: center; border-radius: 40px 40px 0 0; }
+        #adminArea { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: white; z-index: 9999; }
     </style>
 </head>
 <body>
 
-    <div class="moving-offer">
-        <div class="moving-text">🔥 FLAT 15% OFF! গারমেন্টস বাল্ক অর্ডার মাত্র ২২ টাকা থেকে শুরু! উত্তরা এলাকার সেরা লন্ড্রি সার্ভিস... 🔥</div>
+    <div class="top-offer">
+        <div class="marquee">✨ FLAT 15% OFF! গারমেন্টস বাল্ক ২২৳ | কর্পোরেট বেডশিট ২৫৳ | উত্তরা এলাকায় দ্রুততম ডেলিভারি ✨</div>
     </div>
 
     <nav class="navbar">
         <a href="#" class="logo">Laundry<span>'wala</span></a>
-        <div id="clock" style="font-weight: bold;"></div>
+        <div id="clock" style="font-weight: 800; color: var(--accent);"></div>
     </nav>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <h3 style="color: var(--primary);">Our Quality Finishing ⚡</h3>
-    </div>
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/AlHA5siKuRs?autoplay=1&mute=1&loop=1&playlist=AlHA5siKuRs" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-
-    <div class="tabs">
-        <div class="tab active" onclick="setCat('All', this)">All</div>
-        <div class="tab" onclick="setCat('Garments', this)">Garments</div>
-        <div class="tab" onclick="setCat('Hotel', this)">Corporate/Hotel</div>
-        <div class="tab" onclick="setCat('Men', this)">Men</div>
-        <div class="tab" onclick="setCat('Women', this)">Women</div>
+    <div class="tab-wrapper">
+        <div class="tab-btn active" onclick="setCat('All', this)">All Items</div>
+        <div class="tab-btn" onclick="setCat('Garments', this)">Garments Bulk</div>
+        <div class="tab-btn" onclick="setCat('Corporate', this)">Hotel/Corporate</div>
+        <div class="tab-btn" onclick="setCat('Men', this)">Men</div>
+        <div class="tab-btn" onclick="setCat('Women', this)">Women</div>
+        <div class="tab-btn" onclick="setCat('Home', this)">Home & Bedding</div>
     </div>
 
-    <div class="grid" id="grid"></div>
+    <div class="grid" id="mainGrid"></div>
 
-    <div class="cart-strip" id="cartStrip">
-        <div style="font-weight: bold;">বিল: <span id="total">৳0</span></div>
-        <button onclick="openPay()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:50px; font-weight:800; cursor:pointer;">Confirm Order</button>
+    <a href="https://wa.me/8801872720582" class="wa-float"><i class="fab fa-whatsapp"></i></a>
+
+    <div class="cart-bar" id="cartBar">
+        <div><span style="font-size: 12px; opacity: 0.8; display: block;">Total Bill</span><span id="finalBill" style="font-size: 20px; font-weight: 800;">৳0</span></div>
+        <button onclick="openForm()" style="background:var(--accent); color:white; border:none; padding:12px 25px; border-radius:15px; font-weight:800; cursor:pointer;">Confirm Order</button>
     </div>
 
-    <div id="payModal">
+    <div class="modal" id="orderModal">
         <div class="modal-body">
-            <h3>অর্ডার কনফার্ম করুন</h3>
-            <p>মোট বিল: <strong id="mTotal"></strong></p>
-            <input type="text" id="uName" class="order-field" placeholder="আপনার নাম">
-            <input type="text" id="uPhone" class="order-field" placeholder="মোবাইল নম্বর">
-            <input type="text" id="uAddr" class="order-field" placeholder="ঠিকানা">
-            <button onclick="finalOrder()" id="finalBtn" style="background:#25d366; color:white; border:none; padding:15px; width:100%; border-radius:12px; font-weight:bold; cursor:pointer;">অর্ডার সাবমিট করুন</button>
-            <p onclick="closePay()" style="color:red; cursor:pointer; margin-top:10px;">বন্ধ করুন</p>
+            <h3 style="margin-top: 0;">অর্ডার রিভিউ করুন</h3>
+            <div id="orderReviewList" style="text-align: left; margin-bottom: 15px; border: 1px solid #f1f5f9; padding: 10px; border-radius: 15px; background: #fafafa; max-height: 200px; overflow-y: auto;">
+                </div>
+            <div style="font-size: 18px; font-weight: 800; margin-bottom: 20px;">মোট বিল: <span id="popupTotal" style="color:var(--accent)">৳0</span></div>
+            
+            <input type="text" id="uName" placeholder="আপনার নাম" class="order-field">
+            <input type="text" id="uPhone" placeholder="মোবাইল নম্বর" class="order-field">
+            <input type="text" id="uAddr" placeholder="ঠিকানা (সেক্টর/রোড)" class="order-field">
+            
+            <button onclick="confirmOrder()" id="subBtn" style="width:100%; background:#22c55e; color:white; padding:15px; border:none; border-radius:15px; font-weight:bold; font-size:16px; cursor:pointer;">অর্ডার প্লেস করুন</button>
+            <p onclick="closeModal('orderModal')" style="color:red; cursor:pointer; margin-top:15px; font-weight:bold;">পিছনে যান</p>
         </div>
     </div>
 
-    <div id="successModal">
+    <div class="modal" id="successModal">
         <div class="modal-body">
-            <i class="fas fa-check-circle" style="font-size: 50px; color: #25d366;"></i>
-            <h2>ধন্যবাদ বস!</h2>
-            <p>আপনার অর্ডারটি সফলভাবে জমা হয়েছে।</p>
-            <p>অর্ডার আইডি: <strong id="orderID" style="color:var(--offer)"></strong></p>
-            <button onclick="closeSuccess()" style="background:var(--primary); color:white; border:none; padding:10px 25px; border-radius:10px; cursor:pointer; margin-top:10px;">ঠিক আছে</button>
+            <i class="fas fa-check-circle" style="font-size: 60px; color: #22c55e;"></i>
+            <h2>অর্ডার সফল!</h2>
+            <p>আইডি: <strong id="resID" style="color:var(--accent)"></strong></p>
+            <button onclick="location.reload()" style="background:var(--primary); color:white; padding:12px 30px; border:none; border-radius:10px; margin-top:15px; cursor:pointer;">ঠিক আছে</button>
         </div>
+    </div>
+
+    <div id="adminArea">
+        <div style="background:var(--primary); padding:10px; display:flex; justify-content:space-between; color:white;">
+            <span>Admin Panel</span>
+            <button onclick="document.getElementById('adminArea').style.display='none'" style="background:red; color:white; border:none;">Close X</button>
+        </div>
+        <iframe src="https://docs.google.com/spreadsheets/d/1vA5W0mO3-l0pLg3nF6N4YVb_X-7p8_z39vK7K1R0B9s/edit" style="width:100%; height:93vh; border:none;"></iframe>
     </div>
 
     <footer>
-        <h2 style="color:var(--accent);">Laundry'wala</h2>
+        <h2 style="color:var(--accent);">Laundry<span>'wala</span></h2>
         <p>০১৮৭২৭২০৫৮২ | উত্তরা, ঢাকা</p>
-        <p style="opacity:0.5; font-size:12px;">© 2026 Laundry'wala</p>
+        <div style="margin: 20px 0; font-size: 24px;">
+            <i class="fab fa-facebook" style="margin:0 10px;"></i>
+            <i class="fab fa-whatsapp" style="margin:0 10px;"></i>
+        </div>
+        <button onclick="openAdmin()" style="background:none; border:1px solid rgba(255,255,255,0.2); color:white; padding:5px 15px; border-radius:20px; font-size:10px; cursor:pointer;">Owner Login</button>
     </footer>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzAht6SeWL41e5jbm_ChFsBglwevk-UMN5ny7uFszwiB9uW_8BtwYgpX3Mgx15TM4hi/exec';
-
+        
         const items = [
-            // গারমেন্টস লিস্ট
+            // Garments Bulk
             {n: "Garments Shirt/Pant (Normal)", p: 22, c: "Garments"},
             {n: "Garments Shirt/Pant (Premium)", p: 35, c: "Garments"},
             {n: "Garments Hoodie (Normal)", p: 40, c: "Garments"},
             {n: "Garments Hoodie (Premium)", p: 60, c: "Garments"},
-            // হোটেল লিস্ট
-            {n: "Hotel Bed Sheet (Normal)", p: 25, c: "Hotel"},
-            {n: "Hotel Bed Sheet (Premium)", p: 60, c: "Hotel"},
-            {n: "Hotel Pillow Cover (Normal)", p: 10, c: "Hotel"},
-            {n: "Hotel Pillow Cover (Premium)", p: 25, c: "Hotel"},
-            // রেগুলার লিস্ট
+            // Corporate/Hotel
+            {n: "Hotel Bed Sheet (Normal)", p: 25, c: "Corporate"},
+            {n: "Hotel Bed Sheet (Premium)", p: 60, c: "Corporate"},
+            {n: "Hotel Pillow Cover", p: 10, c: "Corporate"},
+            // Men
             {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
+            {n: "Pant (Wash & Iron)", p: 70, c: "Men"},
+            {n: "Panjabi (Wash & Iron)", p: 100, c: "Men"},
+            {n: "Suit (2 Piece)", p: 450, c: "Men"},
+            // Women
             {n: "Saree (Cotton)", p: 150, c: "Women"},
-            {n: "Blanket (Double)", p: 550, c: "Home"}
+            {n: "Saree (Katan/Silk)", p: 400, c: "Women"},
+            {n: "Three Piece", p: 160, c: "Women"},
+            // Home
+            {n: "Blanket (Double)", p: 550, c: "Home"},
+            {n: "Bed Sheet (Double)", p: 180, c: "Home"},
+            {n: "Curtain", p: 100, c: "Home"}
+            // ... আপনি এখানে ১২০টি আইটেম একইভাবে যোগ করতে পারবেন
         ];
 
         let cart = {};
         let currentCat = 'All';
 
         function render() {
-            const grid = document.getElementById('grid');
+            const grid = document.getElementById('mainGrid');
             let filtered = items.filter(i => currentCat === 'All' || i.c === currentCat);
             grid.innerHTML = filtered.map(i => {
                 const dp = Math.round(i.p * 0.85);
-                return `<div class="card">
-                    <h4>${i.n}</h4>
+                return `
+                <div class="card">
+                    <div class="item-name">${i.n}</div>
                     <div class="old-p">৳${i.p}</div>
                     <div class="new-p">৳${dp}</div>
-                    <div class="qty-btns">
-                        <button class="q-btn" onclick="changeQty('${i.n}', -1)">-</button>
-                        <span>${cart[i.n] || 0}</span>
-                        <button class="q-btn" onclick="changeQty('${i.n}', 1)">+</button>
+                    <div class="qty-controls">
+                        <button class="q-btn" onclick="updateQty('${i.n}', -1)">-</button>
+                        <span style="font-weight:800">${cart[i.n] || 0}</span>
+                        <button class="q-btn" onclick="updateQty('${i.n}', 1)">+</button>
                     </div>
                 </div>`;
             }).join('');
-            updateUI();
+            updateCart();
         }
 
-        function changeQty(n, d) { cart[n] = (cart[n] || 0) + d; if(cart[n] <= 0) delete cart[n]; render(); }
+        function updateQty(name, d) {
+            cart[name] = (cart[name] || 0) + d;
+            if(cart[name] <= 0) delete cart[name];
+            render();
+            if(document.getElementById('orderModal').style.display === 'flex') openForm();
+        }
 
-        function updateUI() {
+        function updateCart() {
             let total = 0;
-            for(let k in cart) {
-                let itm = items.find(i => i.n === k);
-                total += Math.round(itm.p * 0.85) * cart[k];
+            for(let key in cart) {
+                let itm = items.find(i => i.n === key);
+                total += Math.round(itm.p * 0.85) * cart[key];
             }
-            document.getElementById('cartStrip').style.display = total > 0 ? 'flex' : 'none';
-            document.getElementById('total').innerText = `৳${total}`;
-            document.getElementById('mTotal').innerText = `৳${total}`;
+            document.getElementById('cartBar').style.display = total > 0 ? 'flex' : 'none';
+            document.getElementById('finalBill').innerText = '৳' + total;
         }
 
-        function setCat(c, el) {
+        function setCat(c, btn) {
             currentCat = c;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             render();
         }
 
-        async function finalOrder() {
-            const name = document.getElementById('uName').value;
-            const phone = document.getElementById('uPhone').value;
-            const addr = document.getElementById('uAddr').value;
-            if(!name || !phone || !addr) { alert("সব তথ্য দিন!"); return; }
+        function openForm() {
+            const list = document.getElementById('orderReviewList');
+            let html = ""; let total = 0;
+            for(let n in cart) {
+                let itm = items.find(i => i.n === n);
+                let p = Math.round(itm.p * 0.85);
+                total += p * cart[n];
+                html += `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                    <div style="font-size:13px;"><b>${n}</b><br>৳${p} x ${cart[n]}</div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <button onclick="updateQty('${n}', -1)" style="width:25px; height:25px; border-radius:50%; border:none;">-</button>
+                        <b>${cart[n]}</b>
+                        <button onclick="updateQty('${n}', 1)" style="width:25px; height:25px; border-radius:50%; border:none;">+</button>
+                    </div>
+                </div>`;
+            }
+            if(total === 0) return closeModal('orderModal');
+            list.innerHTML = html;
+            document.getElementById('popupTotal').innerText = '৳' + total;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
 
-            const btn = document.getElementById('finalBtn');
-            btn.innerText = "অর্ডার যাচ্ছে..."; btn.disabled = true;
+        async function confirmOrder() {
+            const n = document.getElementById('uName').value;
+            const p = document.getElementById('uPhone').value;
+            const a = document.getElementById('uAddr').value;
+            if(!n || !p || !a) return alert("সব তথ্য দিন");
 
-            const orderId = "LW-" + Math.floor(1000 + Math.random() * 9000);
+            const btn = document.getElementById('subBtn');
+            btn.innerText = "Processing..."; btn.disabled = true;
+
+            const orderId = "LW-" + Math.floor(Math.random()*9000 + 1000);
             let details = "";
             for(let k in cart) { details += `${k} (${cart[k]}), `; }
 
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('phone', phone);
-            formData.append('address', addr);
-            formData.append('details', details);
-            formData.append('total', document.getElementById('total').innerText);
+            const fd = new FormData();
+            fd.append('name', n); fd.append('phone', p); fd.append('address', a);
+            fd.append('details', details); fd.append('total', document.getElementById('popupTotal').innerText);
 
-            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData });
+            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: fd });
             
-            document.getElementById('payModal').style.display = 'none';
+            document.getElementById('orderModal').style.display = 'none';
             document.getElementById('successModal').style.display = 'flex';
-            document.getElementById('orderID').innerText = orderId;
-            cart = {}; render();
-            btn.innerText = "অর্ডার সাবমিট করুন"; btn.disabled = false;
+            document.getElementById('resID').innerText = orderId;
         }
 
-        function openPay() { document.getElementById('payModal').style.display = 'flex'; }
-        function closePay() { document.getElementById('payModal').style.display = 'none'; }
-        function closeSuccess() { document.getElementById('successModal').style.display = 'none'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function openAdmin() { if(prompt("Password:") === "7272") document.getElementById('adminArea').style.display = 'block'; }
 
-        window.onload = () => { render(); setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); };
+        window.onload = () => { 
+            render(); 
+            setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); 
+        };
     </script>
 </body>
 </html>
