@@ -1,181 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sil Nia | Experience Comfort</title>
+    <title>Laundry’wala | Premium Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* CSS কোড এখন এখানেই (Internal CSS) */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            scroll-behavior: smooth;
-        }
+        :root { --primary: #0a2540; --accent: #00d2ff; --offer: #ff416c; --light: #f6f9fc; --white: #ffffff; }
+        body { margin: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: var(--light); overflow-x: hidden; }
+        
+        /* Moving Offer Bar */
+        .moving-offer { background: var(--offer); color: white; padding: 10px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; }
+        .moving-text { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; font-size: 14px; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        body { background-color: #fdfdfd; color: #333; }
+        /* Navbar & Tabs */
+        .navbar { background: var(--white); padding: 12px 5%; display: flex; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 38px; z-index: 1000; }
+        .logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .tabs { display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%; scrollbar-width: none; background: white; }
+        .tab { padding: 8px 20px; background: #eee; border-radius: 30px; cursor: pointer; white-space: nowrap; font-weight: 600; transition: 0.3s; }
+        .tab.active { background: var(--primary); color: white; }
 
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 8%;
-            background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        /* Video Section */
+        .video-container { width: 90%; max-width: 600px; margin: 20px auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); background: #000; position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        .logo { font-size: 28px; font-weight: bold; color: #222; letter-spacing: 2px; }
-        .nav-links { list-style: none; display: flex; }
-        .nav-links li { margin-left: 25px; }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: #008cba; }
+        /* Grid System */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 0 5%; }
+        .card { background: white; border-radius: 20px; padding: 15px; text-align: center; border: 1px solid #eee; }
+        .old-p { text-decoration: line-through; color: #999; font-size: 11px; }
+        .new-p { font-size: 18px; font-weight: 800; color: var(--primary); }
+        .q-btn { width: 30px; height: 30px; border-radius: 50%; border: none; background: #f0f2f5; cursor: pointer; font-weight: bold; }
 
-        /* Hero Section */
-        .hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-                        url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
+        /* Modals */
+        #payModal, #successModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; }
+        .modal-body { background: white; padding: 25px; border-radius: 25px; width: 85%; max-width: 350px; text-align: center; }
+        .order-field { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
 
-        .hero-content h1 { font-size: 50px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero-content p { font-size: 18px; margin-bottom: 25px; }
-        .btn { 
-            padding: 15px 40px; background: #fff; color: #222; 
-            text-decoration: none; border-radius: 30px; font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn:hover { background: #222; color: #fff; }
-
-        /* Products */
-        .products { padding: 80px 8%; text-align: center; }
-        .products h2 { font-size: 32px; margin-bottom: 40px; position: relative; }
-        .products h2::after {
-            content: ''; width: 60px; height: 3px; background: #008cba;
-            position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-        }
-
-        .product-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px;
-        }
-
-        .product-card { 
-            background: #fff; padding: 15px; border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
-        }
-        .product-card:hover { transform: translateY(-10px); }
-        .product-img { 
-            height: 300px; background: #f0f0f0; border-radius: 8px; margin-bottom: 15px;
-            display: flex; align-items: center; justify-content: center; font-style: italic; color: #999;
-        }
-
-        .price { font-size: 20px; font-weight: bold; color: #008cba; margin: 10px 0; }
-        .order-btn { 
-            display: inline-block; width: 100%; padding: 12px; 
-            background: #222; color: white; text-decoration: none; border-radius: 6px;
-        }
-
-        /* Order Form */
-        .order-section { padding: 80px 8%; background: #f9f9f9; }
-        .order-container { max-width: 600px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .order-container h2 { margin-bottom: 25px; text-align: center; }
-        input, textarea, select { 
-            width: 100%; padding: 14px; margin-bottom: 20px; 
-            border: 1px solid #ddd; border-radius: 8px; outline: none;
-        }
-        .submit-btn { 
-            width: 100%; padding: 16px; background: #28a745; 
-            color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold;
-        }
-        .submit-btn:hover { background: #218838; }
-
-        /* Footer */
-        footer { background: #1a1a1a; color: #fff; text-align: center; padding: 50px 8%; }
-        .footer-info { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
-        .footer-info strong { color: #fff; }
+        .cart-strip { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--primary); color: white; padding: 15px 25px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; z-index: 2000; }
+        footer { background: var(--primary); color: white; padding: 40px 5%; text-align: center; margin-top: 50px; border-radius: 30px 30px 0 0; }
     </style>
 </head>
 <body>
 
+    <div class="moving-offer">
+        <div class="moving-text">🔥 FLAT 15% OFF! গারমেন্টস বাল্ক অর্ডার মাত্র ২২ টাকা থেকে শুরু! উত্তরা এলাকার সেরা লন্ড্রি সার্ভিস... 🔥</div>
+    </div>
+
     <nav class="navbar">
-        <div class="logo">Sil Nia</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#shop">Shop</a></li>
-            <li><a href="#order">Order</a></li>
-        </ul>
+        <a href="#" class="logo">Laundry<span>'wala</span></a>
+        <div id="clock" style="font-weight: bold;"></div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Experience Comfort</h1>
-            <p>আমাদের প্রিমিয়াম কালেকশনে নিজেকে সাজান পরম আরামে।</p>
-            <a href="#shop" class="btn">কালেকশন দেখুন</a>
-        </div>
-    </header>
+    <div style="text-align: center; margin-top: 20px;">
+        <h3 style="color: var(--primary);">Our Quality Finishing ⚡</h3>
+    </div>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/AlHA5siKuRs?autoplay=1&mute=1&loop=1&playlist=AlHA5siKuRs" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
 
-    <section id="shop" class="products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-img">Product Image 1</div>
-                <h3>Premium Cotton Panjabi</h3>
-                <p class="price">1,850 BDT</p>
-                <a href="#order" class="order-btn">অর্ডার করুন</a>
-            </div>
-            <div class="product-card">
-                <div class="product-img">Product Image 2</div>
-                <h3>Classic Comfort T-Shirt</h3>
-                <p class="price">750 BDT</p>
-                <a href="#order" class="order-btn">অর্ডার করুন</a>
-            </div>
-            <div class="product-card">
-                <div class="product-img">Product Image 3</div>
-                <h3>Formal Linen Shirt</h3>
-                <p class="price">1,550 BDT</p>
-                <a href="#order" class="order-btn">অর্ডার করুন</a>
-            </div>
-        </div>
-    </section>
+    <div class="tabs">
+        <div class="tab active" onclick="setCat('All', this)">All</div>
+        <div class="tab" onclick="setCat('Garments', this)">Garments</div>
+        <div class="tab" onclick="setCat('Hotel', this)">Corporate/Hotel</div>
+        <div class="tab" onclick="setCat('Men', this)">Men</div>
+        <div class="tab" onclick="setCat('Women', this)">Women</div>
+    </div>
 
-    <section id="order" class="order-section">
-        <div class="order-container">
-            <h2>অর্ডার কনফার্ম করুন</h2>
-            <form action="https://formspree.io/f/laundrywala72720@gmail.com" method="POST">
-                <input type="text" name="customer_name" placeholder="আপনার পুরো নাম" required>
-                <input type="text" name="phone_number" placeholder="আপনার একটিভ ফোন নম্বর" required>
-                <textarea name="delivery_address" rows="4" placeholder="ডেলিভারি ঠিকানা (বাসা নং, রোড, এলাকা, জেলা)" required></textarea>
-                <select name="selected_product">
-                    <option value="">পণ্য নির্বাচন করুন</option>
-                    <option value="Premium Panjabi">Premium Cotton Panjabi</option>
-                    <option value="Comfort T-Shirt">Classic Comfort T-Shirt</option>
-                    <option value="Linen Shirt">Formal Linen Shirt</option>
-                </select>
-                <button type="submit" class="submit-btn">অর্ডার প্লেস করুন</button>
-            </form>
+    <div class="grid" id="grid"></div>
+
+    <div class="cart-strip" id="cartStrip">
+        <div style="font-weight: bold;">বিল: <span id="total">৳0</span></div>
+        <button onclick="openPay()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:50px; font-weight:800; cursor:pointer;">Confirm Order</button>
+    </div>
+
+    <div id="payModal">
+        <div class="modal-body">
+            <h3>অর্ডার কনফার্ম করুন</h3>
+            <p>মোট বিল: <strong id="mTotal"></strong></p>
+            <input type="text" id="uName" class="order-field" placeholder="আপনার নাম">
+            <input type="text" id="uPhone" class="order-field" placeholder="মোবাইল নম্বর">
+            <input type="text" id="uAddr" class="order-field" placeholder="ঠিকানা">
+            <button onclick="finalOrder()" id="finalBtn" style="background:#25d366; color:white; border:none; padding:15px; width:100%; border-radius:12px; font-weight:bold; cursor:pointer;">অর্ডার সাবমিট করুন</button>
+            <p onclick="closePay()" style="color:red; cursor:pointer; margin-top:10px;">বন্ধ করুন</p>
         </div>
-    </section>
+    </div>
+
+    <div id="successModal">
+        <div class="modal-body">
+            <i class="fas fa-check-circle" style="font-size: 50px; color: #25d366;"></i>
+            <h2>ধন্যবাদ বস!</h2>
+            <p>আপনার অর্ডারটি সফলভাবে জমা হয়েছে।</p>
+            <p>অর্ডার আইডি: <strong id="orderID" style="color:var(--offer)"></strong></p>
+            <button onclick="closeSuccess()" style="background:var(--primary); color:white; border:none; padding:10px 25px; border-radius:10px; cursor:pointer; margin-top:10px;">ঠিক আছে</button>
+        </div>
+    </div>
 
     <footer>
-        <div class="footer-info">
-            <p><strong>Sil Nia</strong> - Experience Comfort</p>
-            <p>Email: laundrywala72720@gmail.com</p>
-            <p>Phone: 01872720582</p>
-        </div>
-        <p style="font-size: 14px; color: #777;">&copy; 2026 Sil Nia Clothing. All rights reserved.</p>
+        <h2 style="color:var(--accent);">Laundry'wala</h2>
+        <p>০১৮৭২৭২০৫৮২ | উত্তরা, ঢাকা</p>
+        <p style="opacity:0.5; font-size:12px;">© 2026 Laundry'wala</p>
     </footer>
 
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzAht6SeWL41e5jbm_ChFsBglwevk-UMN5ny7uFszwiB9uW_8BtwYgpX3Mgx15TM4hi/exec';
+
+        const items = [
+            // গারমেন্টস লিস্ট
+            {n: "Garments Shirt/Pant (Normal)", p: 22, c: "Garments"},
+            {n: "Garments Shirt/Pant (Premium)", p: 35, c: "Garments"},
+            {n: "Garments Hoodie (Normal)", p: 40, c: "Garments"},
+            {n: "Garments Hoodie (Premium)", p: 60, c: "Garments"},
+            // হোটেল লিস্ট
+            {n: "Hotel Bed Sheet (Normal)", p: 25, c: "Hotel"},
+            {n: "Hotel Bed Sheet (Premium)", p: 60, c: "Hotel"},
+            {n: "Hotel Pillow Cover (Normal)", p: 10, c: "Hotel"},
+            {n: "Hotel Pillow Cover (Premium)", p: 25, c: "Hotel"},
+            // রেগুলার লিস্ট
+            {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
+            {n: "Saree (Cotton)", p: 150, c: "Women"},
+            {n: "Blanket (Double)", p: 550, c: "Home"}
+        ];
+
+        let cart = {};
+        let currentCat = 'All';
+
+        function render() {
+            const grid = document.getElementById('grid');
+            let filtered = items.filter(i => currentCat === 'All' || i.c === currentCat);
+            grid.innerHTML = filtered.map(i => {
+                const dp = Math.round(i.p * 0.85);
+                return `<div class="card">
+                    <h4>${i.n}</h4>
+                    <div class="old-p">৳${i.p}</div>
+                    <div class="new-p">৳${dp}</div>
+                    <div class="qty-btns">
+                        <button class="q-btn" onclick="changeQty('${i.n}', -1)">-</button>
+                        <span>${cart[i.n] || 0}</span>
+                        <button class="q-btn" onclick="changeQty('${i.n}', 1)">+</button>
+                    </div>
+                </div>`;
+            }).join('');
+            updateUI();
+        }
+
+        function changeQty(n, d) { cart[n] = (cart[n] || 0) + d; if(cart[n] <= 0) delete cart[n]; render(); }
+
+        function updateUI() {
+            let total = 0;
+            for(let k in cart) {
+                let itm = items.find(i => i.n === k);
+                total += Math.round(itm.p * 0.85) * cart[k];
+            }
+            document.getElementById('cartStrip').style.display = total > 0 ? 'flex' : 'none';
+            document.getElementById('total').innerText = `৳${total}`;
+            document.getElementById('mTotal').innerText = `৳${total}`;
+        }
+
+        function setCat(c, el) {
+            currentCat = c;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            render();
+        }
+
+        async function finalOrder() {
+            const name = document.getElementById('uName').value;
+            const phone = document.getElementById('uPhone').value;
+            const addr = document.getElementById('uAddr').value;
+            if(!name || !phone || !addr) { alert("সব তথ্য দিন!"); return; }
+
+            const btn = document.getElementById('finalBtn');
+            btn.innerText = "অর্ডার যাচ্ছে..."; btn.disabled = true;
+
+            const orderId = "LW-" + Math.floor(1000 + Math.random() * 9000);
+            let details = "";
+            for(let k in cart) { details += `${k} (${cart[k]}), `; }
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('phone', phone);
+            formData.append('address', addr);
+            formData.append('details', details);
+            formData.append('total', document.getElementById('total').innerText);
+
+            await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: formData });
+            
+            document.getElementById('payModal').style.display = 'none';
+            document.getElementById('successModal').style.display = 'flex';
+            document.getElementById('orderID').innerText = orderId;
+            cart = {}; render();
+            btn.innerText = "অর্ডার সাবমিট করুন"; btn.disabled = false;
+        }
+
+        function openPay() { document.getElementById('payModal').style.display = 'flex'; }
+        function closePay() { document.getElementById('payModal').style.display = 'none'; }
+        function closeSuccess() { document.getElementById('successModal').style.display = 'none'; }
+
+        window.onload = () => { render(); setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); };
+    </script>
 </body>
 </html>
